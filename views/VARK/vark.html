@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test VARK - Estilos de Aprendizaje</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .pregunta-vark {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        
+        .pregunta-texto h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .opciones-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .opcion-vark {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .opcion-vark:hover {
+            background: #e8f4fd;
+        }
+        
+        .opcion-vark input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background: #45a049;
+        }
+        
+        #resultadoVark {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f5e8;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .puntaje-estilo {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .estilo-predominante {
+            border-left-color: #27ae60;
+            background: #d5f4e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Test VARK - Estilos de Aprendizaje</h1>
+        <p><strong>Instrucciones:</strong> Elija la respuesta que mejor explique su preferencia. 
+                                           Haga clic en más de una si una sola respuesta no 
+                                           coincide con su percepción.
+        </p>
+        
+        <form id="formVark">
+            <div id="preguntas-vark">
+                <!-- Las preguntas se generan dinámicamente aquí -->
+            </div>
+            <button type="submit" id="btnCalcularVark">Calcular Mi Estilo VARK</button>
+        </form>
+
+        <div id="resultadoVark">
+            <h2>🎯 Tu Resultado VARK</h2>
+            <div id="resultadoContenidoVark"></div>
+        </div>
+    </div>
+
+    <script src="preguntas_vark.js"></script>
+    <script src="test_vark.js"></script>
+</body>
+</html>

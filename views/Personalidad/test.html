@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Personalidad</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Test de Personalidad - Myers-Briggs</h1>
+        <p><strong>Instrucciones:</strong> Para cada par, distribuya 10 puntos entre las dos opciones. <strong>No use 5-5</strong>.</p>
+        
+        <form id="formPersonalidad">
+            <!-- Las dimensiones se generan automáticamente aquí -->
+            <button type="submit" id="btnCalcular" disabled>Calcular Mi Tipo de Personalidad</button>
+        </form>
+
+        <div id="resultado" style="display: none;">
+            <h2>Tu Resultado</h2>
+            <div id="resultadoContenido"></div>
+        </div>
+    </div>
+
+    <script src="test_personalidad.js"></script>
+    <script src="personalidad.js"></script>
+    <script src="validacion.js"></script>
+</body>
+</html>

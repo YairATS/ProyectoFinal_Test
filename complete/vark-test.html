@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test VARK - Estilos de Aprendizaje</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .pregunta-vark {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        
+        .pregunta-texto h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .opciones-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .opcion-vark {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .opcion-vark:hover {
+            background: #e8f4fd;
+        }
+        
+        .opcion-vark input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background: #45a049;
+        }
+        
+        #resultadoVark {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f5e8;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .puntaje-estilo {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .estilo-predominante {
+            border-left-color: #27ae60;
+            background: #d5f4e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Test VARK - Estilos de Aprendizaje</h1>
+        <p><strong>Instrucciones:</strong> Elija la respuesta que mejor explique su preferencia. 
+                                           Haga clic en más de una si una sola respuesta no 
+                                           coincide con su percepción.
+        </p>
+        
+        <form id="formVark">
+            <div id="preguntas-vark">
+                <!-- Las preguntas se generan dinámicamente aquí -->
+            </div>
+            <button type="submit" id="btnCalcularVark">Calcular Mi Estilo VARK</button>
+        </form>
+
+        <div id="resultadoVark">
+            <h2>🎯 Tu Resultado VARK</h2>
+            <div id="resultadoContenidoVark"></div>
+        </div>
+    </div>
+
+    <script src="preguntas_vark.js">
+        // vark-data.js
+    const VARK_DATA = {
+        titulo: "Cuestionario VARK",
+        instrucciones: "Elija la respuesta que mejor explique su preferencia. Haga clic en más de una si una sola respuesta no coincide con su percepción.",
+        preguntas: [
+            {
+                id: 1,
+                texto: "Está a punto de dar instrucciones a una persona que está en una calle de una ciudad. Ella va a ir a la estación de ferrocarril, al correo y luego a la sala de música para un concierto. Usted:",
+                opciones: [
+                    { valor: "V", texto: "Le dibuja un mapa en un papel" },
+                    { valor: "A", texto: "Le dice las direcciones verbalmente" },
+                    { valor: "R", texto: "Le escribe las direcciones (sin mapa)" },
+                    { valor: "K", texto: "Va con ella" }
+                ]
+            },
+            {
+                id: 2,
+                texto: "No está seguro/a de si una palabra se escribe con 's' o con 'c'. Usted:",
+                opciones: [
+                    { valor: "V", texto: "Escribe ambas palabras en un papel y elige una" },
+                    { valor: "A", texto: "Piensa cómo suena cada una" },
+                    { valor: "R", texto: "Busca la palabra en un diccionario" },
+                    { valor: "K", texto: "Escribe ambas palabras y elige una" }
+                ]
+            },
+            {
+                id: 3,
+                texto: "Está planeando unas vacaciones para un grupo. Usted quiere alguna sugerencia de ellos sobre el plan. Usted:",
+                opciones: [
+                    { valor: "V", texto: "Usa un mapa o páginas web para mostrarles los lugares" },
+                    { valor: "A", texto: "Les describe algunos de los puntos destacados" },
+                    { valor: "R", texto: "Les da una copia del itinerario impreso" },
+                    { valor: "K", texto: "Llama a algunos amigos para hablar del plan" }
+                ]
+            },
+            {
+                id: 4,
+                texto: "Va a cocinar algo especial para su familia. Usted:",
+                opciones: [
+                    { valor: "V", texto: "Busca en Internet o en un libro de cocina" },
+                    { valor: "A", texto: "Le pide sugerencias a amigos" },
+                    { valor: "R", texto: "Usa un libro de cocina donde sabe que hay una buena receta" },
+                    { valor: "K", texto: "Cocina algo que sabe sin necesidad de instrucciones" }
+                ]
+            },
+            {
+                id: 5,
+                texto: "Un grupo de turistas quiere aprender sobre los parques o reservas naturales de su área. Usted:",
+                opciones: [
+                    { valor: "V", texto: "Los lleva a un parque o reserva natural" },
+                    { valor: "A", texto: "Les da una charla sobre los parques o reservas naturales" },
+                    { valor: "R", texto: "Les da un libro o folleto sobre los parques o reservas naturales" },
+                    { valor: "K", texto: "Los lleva a un parque o reserva natural y camina con ellos" }
+                ]
+            },
+            {
+                id: 6,
+                texto: "Va a elegir comida en un restaurante o una cafetería. Usted:",
+                opciones: [
+                    { valor: "V", texto: "Mira lo que otros comen o mira los platos en el menú" },
+                    { valor: "A", texto: "Escucha al camarero o le pide recomendaciones" },
+                    { valor: "R", texto: "Elije en el menú" },
+                    { valor: "K", texto: "Elije algo que ya ha probado antes" }
+                ]
+            },
+            {
+                id: 7,
+                texto: "Tiene que hacer un discurso para una conferencia u ocasión especial. Usted:",
+                opciones: [
+                    { valor: "V", texto: "Hace diagramas o consigue imágenes para ayudar a explicar" },
+                    { valor: "A", texto: "Escribe algunas palabras clave y practica repitiendo" },
+                    { valor: "R", texto: "Escribe el discurso y lo aprende leyéndolo varias veces" },
+                    { valor: "K", texto: "Recoge muchos ejemplos e historias para hacerlo real" }
+                ]
+            },
+            {
+                id: 8,
+                texto: "Un sitio web tiene un video que muestra cómo hacer algo. Hay una persona hablando, algunas listas y palabras y algunos diagramas. Usted aprende mejor:",
+                opciones: [
+                    { valor: "V", texto: "Viendo los diagramas" },
+                    { valor: "A", texto: "Escuchando a la persona" },
+                    { valor: "R", texto: "Leyendo las palabras y listas" },
+                    { valor: "K", texto: "Viendo las acciones" }
+                ]
+            },
+            {
+                id: 9,
+                texto: "Está usando un libro, un CD o un sitio web para aprender a tomar fotos con su nueva cámara. Le gustaría tener:",
+                opciones: [
+                    { valor: "V", texto: "Muchos diagramas que muestren la cámara y alguien tomando fotos" },
+                    { valor: "A", texto: "Una oportunidad de hacer preguntas y hablar sobre las características" },
+                    { valor: "R", texto: "Instrucciones claras escritas con listas y puntos sobre qué hacer" },
+                    { valor: "K", texto: "Muchos ejemplos de fotos buenas y malas y cómo mejorarlas" }
+                ]
+            },
+            {
+                id: 10,
+                texto: "Usted:",
+                opciones: [
+                    { valor: "V", texto: "Puede entender cómo funciona algo si lo desarma y lo vuelve a armar" },
+                    { valor: "A", texto: "Puede entender cómo funciona algo si alguien se lo explica" },
+                    { valor: "R", texto: "Puede entender cómo funciona algo si lee cómo funciona" },
+                    { valor: "K", texto: "Puede entender cómo funciona algo si lo usa" }
+                ]
+            },
+            {
+                id: 11,
+                texto: "Cuando ve las estadísticas en el diario o en Internet Usted:",
+                opciones: [
+                    { valor: "V", texto: "Busca los gráficos o diagramas" },
+                    { valor: "A", texto: "Habla con alguien sobre lo que significan" },
+                    { valor: "R", texto: "Se concentra en las palabras" },
+                    { valor: "K", texto: "Relaciona las estadísticas con situaciones reales" }
+                ]
+            },
+            {
+                id: 12,
+                texto: "Usted aprende algo práctico (no académico) mejor mediante:",
+                opciones: [
+                    { valor: "V", texto: "Demostraciones visuales, diagramas, mapas" },
+                    { valor: "A", texto: "Consejos verbales, hablando a través de ello con alguien" },
+                    { valor: "R", texto: "Instrucciones escritas, libros o textos" },
+                    { valor: "K", texto: "Práctica, ensayo y error" }
+                ]
+            },
+            {
+                id: 13,
+                texto: "Cuando está aprendiendo una habilidad física o un deporte, usted:",
+                opciones: [
+                    { valor: "V", texto: "Observa a alguien que sabe hacerlo" },
+                    { valor: "A", texto: "Habla con un instructor que le explica" },
+                    { valor: "R", texto: "Sigue los diagramas o las instrucciones" },
+                    { valor: "K", texto: "Practica y se corrige a medida que avanza" }
+                ]
+            },
+            {
+                id: 14,
+                texto: "Usted está aprendiendo a hacer algo nuevo en la computadora. Usted:",
+                opciones: [
+                    { valor: "V", texto: "Sitúa el cursor y hace clic hasta que funciona" },
+                    { valor: "A", texto: "Habla con gente que sabe cómo hacerlo" },
+                    { valor: "R", texto: "Lee el manual" },
+                    { valor: "K", texto: "Sigue los diagramas que le muestran qué hacer" }
+                ]
+            },
+            {
+                id: 15,
+                texto: "Usted prefiere un profesor o conferencista que use:",
+                opciones: [
+                    { valor: "V", texto: "Demostraciones, modelos o sesiones prácticas" },
+                    { valor: "A", texto: "Preguntas y respuestas, charlas, oradores invitados" },
+                    { valor: "R", texto: "Apuntes, manuales y lecturas" },
+                    { valor: "K", texto: "Excursiones, laboratorios, sesiones prácticas" }
+                ]
+            },
+            {
+                id: 16,
+                texto: "Usted está a punto de comprar una cámara digital o un teléfono o móvil. Además del precio, ¿qué más influye en su decisión?",
+                opciones: [
+                    { valor: "V", texto: "Leer los detalles sobre sus características" },
+                    { valor: "A", texto: "El vendedor me informa acerca de sus características" },
+                    { valor: "R", texto: "Probarlo o usarlo" },
+                    { valor: "K", texto: "Es un diseño moderno y se ve bien" }
+                ]
+            }
+        ]
+    };
+    </script>
+    <script src="test_vark.js">
+        // vark-logica.js
+function generarTestVark() {
+    const container = document.getElementById('preguntas-vark');
+    
+    VARK_DATA.preguntas.forEach((pregunta, index) => {
+        const preguntaDiv = document.createElement('div');
+        preguntaDiv.className = 'pregunta-vark';
+        preguntaDiv.dataset.id = pregunta.id;
+        
+        let opcionesHTML = '';
+        pregunta.opciones.forEach((opcion) => {
+            opcionesHTML += `
+                <label class="opcion-vark">
+                    <input type="checkbox" name="pregunta_${pregunta.id}" 
+                           value="${opcion.valor}" data-pregunta="${pregunta.id}">
+                    ${opcion.texto}
+                </label>
+            `;
+        });
+        
+        preguntaDiv.innerHTML = `
+            <div class="pregunta-texto">
+                <h4>${index + 1}. ${pregunta.texto}</h4>
+            </div>
+            <div class="opciones-container">
+                ${opcionesHTML}
+            </div>
+        `;
+        
+        container.appendChild(preguntaDiv);
+    });
+    
+    configurarEventosVark();
+}
+
+function configurarEventosVark() {
+    document.getElementById('formVark').addEventListener('submit', function(e) {
+        e.preventDefault();
+        calcularResultadoVark();
+    });
+}
+
+function calcularResultadoVark() {
+    const respuestas = recolectarRespuestasVark();
+    const resultado = procesarResultadoVark(respuestas);
+    mostrarResultadoVark(resultado);
+}
+
+function recolectarRespuestasVark() {
+    const respuestas = { V: 0, A: 0, R: 0, K: 0 };
+    
+    // Contar selecciones por estilo
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+        const estilo = checkbox.value;
+        respuestas[estilo]++;
+    });
+    
+    return respuestas;
+}
+
+function procesarResultadoVark(respuestas) {
+    const { V, A, R, K } = respuestas;
+    const total = V + A + R + K;
+    
+    // Encontrar estilo predominante
+    let estiloPredominante = 'V';
+    let maxPuntaje = V;
+    
+    if (A > maxPuntaje) { estiloPredominante = 'A'; maxPuntaje = A; }
+    if (R > maxPuntaje) { estiloPredominante = 'R'; maxPuntaje = R; }
+    if (K > maxPuntaje) { estiloPredominante = 'K'; maxPuntaje = K; }
+    
+    return {
+        puntajes: { V, A, R, K },
+        estiloPredominante,
+        totalRespuestas: total,
+        porcentajes: {
+            V: total > 0 ? Math.round((V / total) * 100) : 0,
+            A: total > 0 ? Math.round((A / total) * 100) : 0,
+            R: total > 0 ? Math.round((R / total) * 100) : 0,
+            K: total > 0 ? Math.round((K / total) * 100) : 0
+        }
+    };
+}
+
+function mostrarResultadoVark(resultado) {
+    const resultadoDiv = document.getElementById('resultadoVark');
+    const contenidoDiv = document.getElementById('resultadoContenidoVark');
+    
+    const descripciones = {
+        'V': '👁️ VISUAL - Aprendes mejor mediante imágenes, diagramas, videos, gráficos y representaciones visuales',
+        'A': '👂 AUDITIVO - Prefieres escuchar explicaciones, discusiones, conferencias y material auditivo',
+        'R': '📝 LECTURA/ESCRITURA - Aprendes mejor leyendo textos, tomando notas, escribiendo y organizando información',
+        'K': '✋ KINESTÉSICO - Aprendes haciendo, mediante experiencia práctica, movimiento y actividades táctiles'
+    };
+    
+    let html = `
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h3 style="font-size: 2em; color: #2c3e50; margin: 0;">
+                Estilo ${resultado.estiloPredominante} - ${descripciones[resultado.estiloPredominante].split(' - ')[1]}
+            </h3>
+            <p style="font-style: italic; color: #7f8c8d;">
+                ${descripciones[resultado.estiloPredominante]}
+            </p>
+        </div>
+        
+        <h4>📊 Tus Puntajes:</h4>
+    `;
+    
+    // Mostrar puntajes individuales
+    Object.entries(resultado.puntajes).forEach(([estilo, puntaje]) => {
+        const esPredominante = estilo === resultado.estiloPredominante;
+        const clase = esPredominante ? 'puntaje-estilo estilo-predominante' : 'puntaje-estilo';
+        const porcentaje = resultado.porcentajes[estilo];
+        
+        html += `
+            <div class="${clase}">
+                <strong>${estilo}: ${puntaje} puntos (${porcentaje}%)</strong><br>
+                <small>${descripciones[estilo]}</small>
+                ${esPredominante ? '<div style="color: #27ae60; margin-top: 5px;">🎯 ESTILO PREDOMINANTE</div>' : ''}
+            </div>
+        `;
+    });
+    
+    html += `
+        <div style="margin-top: 20px; padding: 15px; background: #d6eaf8; border-radius: 5px;">
+            <strong>Total de respuestas seleccionadas:</strong> ${resultado.totalRespuestas}
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="reiniciarTestVark()" style="background: #e74c3c;">
+                🔄 Hacer otro test
+            </button>
+        </div>
+    `;
+    
+    contenidoDiv.innerHTML = html;
+    resultadoDiv.style.display = 'block';
+    resultadoDiv.scrollIntoView({ behavior: 'smooth' });
+}
+
+function reiniciarTestVark() {
+    // Limpiar todos los checkboxes
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    
+    // Ocultar resultado
+    document.getElementById('resultadoVark').style.display = 'none';
+    
+    // Scroll al inicio
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Inicializar cuando cargue la página
+document.addEventListener('DOMContentLoaded', function() {
+    generarTestVark();
+});
+    </script>
+</body>
+</html>
