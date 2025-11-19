@@ -1,0 +1,515 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 80px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.pregunta-vark {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.pregunta-vark h4 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.1em;
+  word-break: break-word;
+}
+
+.opciones-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.opcion-vark {
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.opcion-vark:hover {
+  background: #e8f4fd;
+  border-color: #3498db;
+}
+
+.opcion-vark input[type="checkbox"] {
+  margin-right: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+button {
+  background: #4caf50;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 400px;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+#resultadoVark {
+  margin-top: 30px;
+  padding: 20px;
+  background: #e8f5e8;
+  border-radius: 8px;
+  display: none;
+}
+
+#resultadoVark h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-top: 0;
+  font-size: 1.6em;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.result-header {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #27ae60;
+}
+
+.result-header h3 {
+  margin-top: 0;
+  color: #27ae60;
+  font-size: 1.5em;
+}
+
+.result-header p {
+  color: #555;
+  margin-bottom: 0;
+  font-size: 1em;
+}
+
+.puntajes {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.puntajes h4 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.1em;
+}
+
+.puntaje-item {
+  padding: 12px;
+  margin: 10px 0;
+  background: #f5f5f5;
+  border-radius: 5px;
+  border-left: 4px solid #3498db;
+  font-size: 14px;
+}
+
+.puntaje-item.predominante {
+  background: #d5f4e6;
+  border-left-color: #27ae60;
+}
+
+.puntaje-item strong {
+  display: block;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+.puntaje-item small {
+  color: #666;
+}
+
+.alumno-form-section {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alumno-form-section h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    font-weight: 600;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #34495e;
+    font-size: 0.95em;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.form-group input:required {
+    border-left: 3px solid #e74c3c;
+}
+
+.form-group input:not(:required) {
+    border-left: 3px solid #95a5a6;
+}
+
+.form-group select {
+    background-color: white;
+    cursor: pointer;
+}
+
+#loading {
+  text-align: center;
+  padding: 20px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #333;
+  display: none;
+}
+
+hr {
+  margin: 30px 0;
+  border: none;
+  border-top: 2px solid #ddd;
+}
+
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2em;
+}
+
+p {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ==================== */
+/* RESPONSIVE DESIGN    */
+/* ==================== */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+    padding-top: 70px;
+  }
+
+  h1 {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+  }
+
+  .alumno-form-section {
+    padding: 20px 15px;
+    margin-bottom: 20px;
+  }
+
+  .alumno-form-section h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group label {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 12px 10px;
+    font-size: 16px;
+  }
+
+  .pregunta-vark {
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+  }
+
+  .pregunta-vark h4 {
+    font-size: 1em;
+    margin-bottom: 12px;
+  }
+
+  .opcion-vark {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+
+  .opcion-vark input[type="checkbox"] {
+    margin-right: 8px;
+  }
+
+  button {
+    padding: 12px 20px;
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .result-header {
+    padding: 15px;
+  }
+
+  .result-header h3 {
+    font-size: 1.3em;
+  }
+
+  .puntajes {
+    padding: 15px;
+  }
+
+  .puntajes h4 {
+    font-size: 1em;
+  }
+
+  .puntaje-item {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  #resultadoVark {
+    padding: 15px;
+  }
+
+  #resultadoVark h2 {
+    font-size: 1.4em;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+    padding-top: 60px;
+  }
+
+  h1 {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+  }
+
+  .alumno-form-section {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+
+  .alumno-form-section h3 {
+    font-size: 1.1em;
+    margin-bottom: 12px;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .form-group label {
+    font-size: 0.85em;
+    margin-bottom: 4px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 10px 8px;
+    font-size: 14px;
+  }
+
+  .pregunta-vark {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .pregunta-vark h4 {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .opciones-container {
+    gap: 8px;
+  }
+
+  .opcion-vark {
+    padding: 10px 8px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .opcion-vark input[type="checkbox"] {
+    margin-right: 8px;
+    min-width: 18px;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+
+  .result-header {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+
+  .result-header h3 {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+  }
+
+  .result-header p {
+    font-size: 0.9em;
+  }
+
+  .puntajes {
+    padding: 12px;
+  }
+
+  .puntajes h4 {
+    font-size: 0.95em;
+  }
+
+  .puntaje-item {
+    padding: 8px;
+    font-size: 12px;
+    margin: 8px 0;
+  }
+
+  .puntaje-item strong {
+    margin-bottom: 3px;
+  }
+
+  .puntaje-item small {
+    font-size: 0.85em;
+  }
+
+  #resultadoVark {
+    padding: 12px;
+    margin-top: 20px;
+  }
+
+  #resultadoVark h2 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+  }
+
+  hr {
+    margin: 15px 0;
+  }
+
+  p {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 8px;
+  }
+
+  h1 {
+    font-size: 1.1em;
+    margin-bottom: 12px;
+  }
+
+  .alumno-form-section {
+    padding: 10px;
+  }
+
+  .alumno-form-section h3 {
+    font-size: 1em;
+  }
+
+  .pregunta-vark {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .pregunta-vark h4 {
+    font-size: 0.9em;
+  }
+
+  .opcion-vark {
+    padding: 8px 6px;
+    font-size: 11px;
+  }
+
+  button {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .puntaje-item {
+    padding: 8px;
+    font-size: 11px;
+  }
+
+  .result-header h3 {
+    font-size: 1em;
+  }
+}

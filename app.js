@@ -1,19 +1,56 @@
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import AlumnoRoutes from './routes/AlumnoRoutes.js';
 import ContactoRoutes from './routes/ContactoRoutes.js';
 import GrupoRoutes from './routes/GrupoRoutes.js';
+import TestVarkRoutes from './routes/TestVarkRoutes.js';
+import TestPersonalidadRoutes from './routes/TestPersonalidadRoutes.js';
 import { testConnection } from './models/database.js';
+import DashboardRoutes from './routes/DashboardRoutes.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Configurar EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public'))); // Para CSS/JS/imágenes
 
-app.use('/alumnos', AlumnoRoutes);
-app.use('/contactos', ContactoRoutes);
-app.use('/grupos', GrupoRoutes);
+// API Routes
+app.use('/api/alumnos', AlumnoRoutes);
+app.use('/api/contactos', ContactoRoutes);
+app.use('/api/grupos', GrupoRoutes);
+app.use('/api/tests/vark', TestVarkRoutes);
+app.use('/api/tests/personalidad', TestPersonalidadRoutes);
+app.use('/api/dashboard', DashboardRoutes);
 
-// Test DB connection before starting server
+// Rutas de vistas
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+app.get('/test-vark', async (req, res) => {
+  // Obtener grupos para el selector
+  const { Grupos } = await import('./models/database.js');
+  const grupos = await Grupos.findAll({ where: { activo: true } });
+  res.render('vark-test', { grupos });
+});
+
+app.get('/test-personalidad', async (req, res) => {
+  const { Grupos } = await import('./models/database.js');
+  const grupos = await Grupos.findAll({ where: { activo: true } });
+  res.render('personalidad-test', { grupos });
+});
+
+// Test DB connection
 await testConnection();
 
-app.listen(PORT, () => console.log(`Servidor escuchando en el puerto ${PORT}`));
+app.listen(PORT, () => console.log(`✅ Servidor escuchando en http://localhost:${PORT}`));

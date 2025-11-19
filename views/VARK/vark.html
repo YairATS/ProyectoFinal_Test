@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,7 @@
             padding: 20px;
             font-family: Arial, sans-serif;
         }
-        
+
         .pregunta-vark {
             border: 1px solid #ddd;
             padding: 20px;
@@ -19,18 +20,18 @@
             border-radius: 8px;
             background: #f9f9f9;
         }
-        
+
         .pregunta-texto h4 {
             margin-top: 0;
             color: #2c3e50;
         }
-        
+
         .opciones-container {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        
+
         .opcion-vark {
             padding: 10px;
             border: 1px solid #ccc;
@@ -39,15 +40,15 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-        
+
         .opcion-vark:hover {
             background: #e8f4fd;
         }
-        
+
         .opcion-vark input[type="checkbox"] {
             margin-right: 10px;
         }
-        
+
         button {
             background: #4CAF50;
             color: white;
@@ -58,11 +59,11 @@
             cursor: pointer;
             margin-top: 20px;
         }
-        
+
         button:hover {
             background: #45a049;
         }
-        
+
         #resultadoVark {
             margin-top: 30px;
             padding: 20px;
@@ -70,7 +71,7 @@
             border-radius: 8px;
             display: none;
         }
-        
+
         .puntaje-estilo {
             margin: 10px 0;
             padding: 10px;
@@ -78,21 +79,32 @@
             border-radius: 5px;
             border-left: 4px solid #3498db;
         }
-        
+
         .estilo-predominante {
             border-left-color: #27ae60;
             background: #d5f4e6;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>📚 Test VARK - Estilos de Aprendizaje</h1>
-        <p><strong>Instrucciones:</strong> Elija la respuesta que mejor explique su preferencia. 
-                                           Haga clic en más de una si una sola respuesta no 
-                                           coincide con su percepción.
+        <p><strong>Instrucciones:</strong> Elija la respuesta que mejor explique su preferencia.
+            Haga clic en más de una si una sola respuesta no
+            coincide con su percepción.
         </p>
-        
+
+        <div style="background: #f5f5f5; padding: 20px; margin-bottom: 20px; border-radius: 8px;">
+            <h3>Información del Estudiante</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <input type="text" id="nombre" placeholder="Nombre" required>
+                <input type="text" id="apellido" placeholder="Apellido">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="text" id="matricula" placeholder="Matrícula">
+            </div>
+        </div>
+
         <form id="formVark">
             <div id="preguntas-vark">
                 <!-- Las preguntas se generan dinámicamente aquí -->
@@ -109,4 +121,5 @@
     <script src="preguntas_vark.js"></script>
     <script src="test_vark.js"></script>
 </body>
+
 </html>

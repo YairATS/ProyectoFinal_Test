@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test de Personalidad</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <h1>Test de Personalidad - Myers-Briggs</h1>
-        <p><strong>Instrucciones:</strong> Para cada par, distribuya 10 puntos entre las dos opciones. <strong>No use 5-5</strong>.</p>
-        
+        <p><strong>Instrucciones:</strong> Para cada par, distribuya 10 puntos entre las dos opciones. <strong>No use
+                5-5</strong>.</p>
+
         <form id="formPersonalidad">
             <!-- Las dimensiones se generan automáticamente aquí -->
             <button type="submit" id="btnCalcular" disabled>Calcular Mi Tipo de Personalidad</button>
@@ -22,101 +25,101 @@
         </div>
     </div>
 
-    <script src="test_personalidad.js">
+    <script>
         const DATOS_PERSONALIDAD = {
-    dimensiones: [
-        {
-            codigo: 'E_I',
-            nombre: 'Energía, focalización y actitud vital',
-            ladoA: { letra: 'E', nombre: 'Extrovertido', color: '#e8f5e9' },
-            ladoB: { letra: 'I', nombre: 'Introvertido', color: '#e3f2fd' },
-            pares: [
-                { id: 1, textoA: 'Emprendedor y entusiasta', textoB: 'Reservado' },
-                { id: 2, textoA: 'Actúa y luego piensa', textoB: 'Piensa y luego actúa' },
-                { id: 3, textoA: 'Piensa en voz alta', textoB: 'Piensa en voz baja' },
-                { id: 4, textoA: 'Tiene mucha energía', textoB: 'Energía tranquila' },
-                { id: 5, textoA: 'Prefiere hacer varias cosas a la vez', textoB: 'Prefiere concentrarse en una cosa' },
-                { id: 6, textoA: 'Habla más que escucha', textoB: 'Escucha más que habla' },
-                { id: 7, textoA: 'Es fácil de conocer', textoB: 'Lleva una vida muy privada' },
-                { id: 8, textoA: 'Puede distraerse con facilidad', textoB: 'Gran capacidad de concentración' },
-                { id: 9, textoA: 'Le gusta rodearse de gente', textoB: 'Se siente a gusto a solas' }
+            dimensiones: [
+                {
+                    codigo: 'E_I',
+                    nombre: 'Energía, focalización y actitud vital',
+                    ladoA: { letra: 'E', nombre: 'Extrovertido', color: '#e8f5e9' },
+                    ladoB: { letra: 'I', nombre: 'Introvertido', color: '#e3f2fd' },
+                    pares: [
+                        { id: 1, textoA: 'Emprendedor y entusiasta', textoB: 'Reservado' },
+                        { id: 2, textoA: 'Actúa y luego piensa', textoB: 'Piensa y luego actúa' },
+                        { id: 3, textoA: 'Piensa en voz alta', textoB: 'Piensa en voz baja' },
+                        { id: 4, textoA: 'Tiene mucha energía', textoB: 'Energía tranquila' },
+                        { id: 5, textoA: 'Prefiere hacer varias cosas a la vez', textoB: 'Prefiere concentrarse en una cosa' },
+                        { id: 6, textoA: 'Habla más que escucha', textoB: 'Escucha más que habla' },
+                        { id: 7, textoA: 'Es fácil de conocer', textoB: 'Lleva una vida muy privada' },
+                        { id: 8, textoA: 'Puede distraerse con facilidad', textoB: 'Gran capacidad de concentración' },
+                        { id: 9, textoA: 'Le gusta rodearse de gente', textoB: 'Se siente a gusto a solas' }
+                    ]
+                },
+                {
+                    codigo: 'S_N',
+                    nombre: 'Manejo de la información y actitud ante el entorno',
+                    ladoA: { letra: 'S', nombre: 'Sensorial', color: '#fff3e0' },
+                    ladoB: { letra: 'N', nombre: 'Intuitivo', color: '#f3e5f5' },
+                    pares: [
+                        { id: 1, textoA: 'Confía en la experiencia propia', textoB: 'Confía en sus instintos' },
+                        { id: 2, textoA: 'Realista, ve lo que es', textoB: 'Imaginativo, ve lo que podría ser' },
+                        { id: 3, textoA: 'Utiliza destrezas ya aprendidas', textoB: 'Prefiere desarrollar nuevas destrezas' },
+                        { id: 4, textoA: 'Prefiere instrucciones detalladas', textoB: 'Gusta descubrir las cosas por sí mismo' },
+                        { id: 5, textoA: 'Ve detalles y recuerda hechos', textoB: 'Percibe cualquier cosa nueva o diferente' },
+                        { id: 6, textoA: 'Admite soluciones prácticas', textoB: 'Admira ideas creativas' },
+                        { id: 7, textoA: 'Se concentra en hechos específicos', textoB: 'Tiene ideas y visión de conjunto' },
+                        { id: 8, textoA: 'Trabaja a un ritmo uniforme', textoB: 'Trabaja en ráfagas de energía' },
+                        { id: 9, textoA: 'Vive en el aquí y el ahora', textoB: 'Piensa en las implicaciones futuras' }
+                    ]
+                },
+                {
+                    codigo: 'T_F',
+                    nombre: 'Actitud y toma de decisiones',
+                    ladoA: { letra: 'T', nombre: 'Racional', color: '#ffebee' },
+                    ladoB: { letra: 'F', nombre: 'Emocional', color: '#e8eaf6' },
+                    pares: [
+                        { id: 1, textoA: 'Tiende a ver defectos ajenos', textoB: 'Tiende a ver cualidades ajenas' },
+                        { id: 2, textoA: 'Se convence con la lógica', textoB: 'Se convence por sus sensaciones' },
+                        { id: 3, textoA: 'Aparenta ser libre y reservado', textoB: 'Aparenta ser cálido y amistoso' },
+                        { id: 4, textoA: 'Toma decisiones objetivamente', textoB: 'Decide por sus valores y sensaciones' },
+                        { id: 5, textoA: 'No toma las cosas personalmente', textoB: 'Toma muchas cosas personalmente' },
+                        { id: 6, textoA: 'Es motivado por las metas', textoB: 'Es motivado por el reconocimiento' },
+                        { id: 7, textoA: 'Honesto y directo', textoB: 'Diplomático y con mucho tacto' },
+                        { id: 8, textoA: 'Valora la honestidad y la justicia', textoB: 'Valora la armonía y la compasión' },
+                        { id: 9, textoA: 'Argumenta o debate por diversión', textoB: 'Evita discusiones y conflictos' }
+                    ]
+                },
+                {
+                    codigo: 'J_P',
+                    nombre: 'Ambiente de trabajo, estilo de vida en el entorno e interacción',
+                    ladoA: { letra: 'J', nombre: 'Calificador', color: '#e0f2f1' },
+                    ladoB: { letra: 'P', nombre: 'Perceptivo', color: '#fff8e1' },
+                    pares: [
+                        { id: 1, textoA: 'Trabajar primero, jugar después', textoB: 'Jugar primero, trabajar después' },
+                        { id: 2, textoA: 'Prefiere terminar proyectos', textoB: 'Prefiere empezar proyectos' },
+                        { id: 3, textoA: 'Se siente a gusto llevando sus agendas', textoB: 'Desea la libertad de la espontaneidad' },
+                        { id: 4, textoA: 'Le gusta tomar decisiones', textoB: 'Pospone algunas decisiones, si puede' },
+                        { id: 5, textoA: 'Presta atención al tiempo, puntualidad', textoB: 'Menos consciente del tiempo, impuntual' },
+                        { id: 6, textoA: 'Le gusta hacer y atenerse a planes', textoB: 'Le gusta la flexibilidad en los planes' },
+                        { id: 7, textoA: 'Quiere que las cosas se decidan', textoB: 'Quiere tener opciones abiertas' },
+                        { id: 8, textoA: 'Serio y convencional', textoB: 'Relajado y poco convencional' },
+                        { id: 9, textoA: 'Justifica la mayoría de las reglas', textoB: 'Cuestiona muchas reglas' }
+                    ]
+                }
             ]
-        },
-        {
-            codigo: 'S_N',
-            nombre: 'Manejo de la información y actitud ante el entorno',
-            ladoA: { letra: 'S', nombre: 'Sensorial', color: '#fff3e0' },
-            ladoB: { letra: 'N', nombre: 'Intuitivo', color: '#f3e5f5' },
-            pares: [
-                { id: 1, textoA: 'Confía en la experiencia propia', textoB: 'Confía en sus instintos' },
-                { id: 2, textoA: 'Realista, ve lo que es', textoB: 'Imaginativo, ve lo que podría ser' },
-                { id: 3, textoA: 'Utiliza destrezas ya aprendidas', textoB: 'Prefiere desarrollar nuevas destrezas' },
-                { id: 4, textoA: 'Prefiere instrucciones detalladas', textoB: 'Gusta descubrir las cosas por sí mismo' },
-                { id: 5, textoA: 'Ve detalles y recuerda hechos', textoB: 'Percibe cualquier cosa nueva o diferente' },
-                { id: 6, textoA: 'Admite soluciones prácticas', textoB: 'Admira ideas creativas' },
-                { id: 7, textoA: 'Se concentra en hechos específicos', textoB: 'Tiene ideas y visión de conjunto' },
-                { id: 8, textoA: 'Trabaja a un ritmo uniforme', textoB: 'Trabaja en ráfagas de energía' },
-                { id: 9, textoA: 'Vive en el aquí y el ahora', textoB: 'Piensa en las implicaciones futuras' }
-            ]
-        },
-        {
-            codigo: 'T_F',
-            nombre: 'Actitud y toma de decisiones',
-            ladoA: { letra: 'T', nombre: 'Racional', color: '#ffebee' },
-            ladoB: { letra: 'F', nombre: 'Emocional', color: '#e8eaf6' },
-            pares: [
-                { id: 1, textoA: 'Tiende a ver defectos ajenos', textoB: 'Tiende a ver cualidades ajenas' },
-                { id: 2, textoA: 'Se convence con la lógica', textoB: 'Se convence por sus sensaciones' },
-                { id: 3, textoA: 'Aparenta ser libre y reservado', textoB: 'Aparenta ser cálido y amistoso' },
-                { id: 4, textoA: 'Toma decisiones objetivamente', textoB: 'Decide por sus valores y sensaciones' },
-                { id: 5, textoA: 'No toma las cosas personalmente', textoB: 'Toma muchas cosas personalmente' },
-                { id: 6, textoA: 'Es motivado por las metas', textoB: 'Es motivado por el reconocimiento' },
-                { id: 7, textoA: 'Honesto y directo', textoB: 'Diplomático y con mucho tacto' },
-                { id: 8, textoA: 'Valora la honestidad y la justicia', textoB: 'Valora la armonía y la compasión' },
-                { id: 9, textoA: 'Argumenta o debate por diversión', textoB: 'Evita discusiones y conflictos' }
-            ]
-        },
-        {
-            codigo: 'J_P',
-            nombre: 'Ambiente de trabajo, estilo de vida en el entorno e interacción',
-            ladoA: { letra: 'J', nombre: 'Calificador', color: '#e0f2f1' },
-            ladoB: { letra: 'P', nombre: 'Perceptivo', color: '#fff8e1' },
-            pares: [
-                { id: 1, textoA: 'Trabajar primero, jugar después', textoB: 'Jugar primero, trabajar después' },
-                { id: 2, textoA: 'Prefiere terminar proyectos', textoB: 'Prefiere empezar proyectos' },
-                { id: 3, textoA: 'Se siente a gusto llevando sus agendas', textoB: 'Desea la libertad de la espontaneidad' },
-                { id: 4, textoA: 'Le gusta tomar decisiones', textoB: 'Pospone algunas decisiones, si puede' },
-                { id: 5, textoA: 'Presta atención al tiempo, puntualidad', textoB: 'Menos consciente del tiempo, impuntual' },
-                { id: 6, textoA: 'Le gusta hacer y atenerse a planes', textoB: 'Le gusta la flexibilidad en los planes' },
-                { id: 7, textoA: 'Quiere que las cosas se decidan', textoB: 'Quiere tener opciones abiertas' },
-                { id: 8, textoA: 'Serio y convencional', textoB: 'Relajado y poco convencional' },
-                { id: 9, textoA: 'Justifica la mayoría de las reglas', textoB: 'Cuestiona muchas reglas' }
-            ]
-        }
-    ]
-};
+        };
     </script>
-    <script src="personalidad.js">
+    <script>
         function generarTestPersonalidad() {
-    const form = document.getElementById('formPersonalidad');
-    
-    DATOS_PERSONALIDAD.dimensiones.forEach((dimension, dimIndex) => {
-        // Crear contenedor de dimensión
-        const divDimension = document.createElement('div');
-        divDimension.className = 'dimension';
-        divDimension.dataset.dimension = dimension.codigo;
-        
-        // Título de la dimensión
-        const titulo = document.createElement('h4');
-        titulo.textContent = `${dimIndex + 1}. ${dimension.nombre}`;
-        divDimension.appendChild(titulo);
-        
-        // Generar cada par de opciones
-        dimension.pares.forEach(par => {
-            const parDiv = document.createElement('div');
-            parDiv.className = 'par-opciones';
-            
-            parDiv.innerHTML = `
+            const form = document.getElementById('formPersonalidad');
+
+            DATOS_PERSONALIDAD.dimensiones.forEach((dimension, dimIndex) => {
+                // Crear contenedor de dimensión
+                const divDimension = document.createElement('div');
+                divDimension.className = 'dimension';
+                divDimension.dataset.dimension = dimension.codigo;
+
+                // Título de la dimensión
+                const titulo = document.createElement('h4');
+                titulo.textContent = `${dimIndex + 1}. ${dimension.nombre}`;
+                divDimension.appendChild(titulo);
+
+                // Generar cada par de opciones
+                dimension.pares.forEach(par => {
+                    const parDiv = document.createElement('div');
+                    parDiv.className = 'par-opciones';
+
+                    parDiv.innerHTML = `
                 <div class="opcion opcion-izq" style="background: ${dimension.ladoA.color}">
                     <strong>${par.textoA}</strong>
                 </div>
@@ -134,210 +137,210 @@
                     <strong>${par.textoB}</strong>
                 </div>
             `;
-            
-            divDimension.appendChild(parDiv);
-            
-            // Agregar validación
-            const validacionDiv = document.createElement('div');
-            validacionDiv.className = 'validacion-par';
-            validacionDiv.dataset.dimension = dimension.codigo;
-            validacionDiv.dataset.par = par.id;
-            validacionDiv.textContent = '¡Debe sumar 10 puntos! No use 5-5.';
-            divDimension.appendChild(validacionDiv);
-        });
-        
-        // Total de la dimensión
-        const totalDiv = document.createElement('div');
-        totalDiv.className = 'total-dimension';
-        totalDiv.innerHTML = `
+
+                    divDimension.appendChild(parDiv);
+
+                    // Agregar validación
+                    const validacionDiv = document.createElement('div');
+                    validacionDiv.className = 'validacion-par';
+                    validacionDiv.dataset.dimension = dimension.codigo;
+                    validacionDiv.dataset.par = par.id;
+                    validacionDiv.textContent = '¡Debe sumar 10 puntos! No use 5-5.';
+                    divDimension.appendChild(validacionDiv);
+                });
+
+                // Total de la dimensión
+                const totalDiv = document.createElement('div');
+                totalDiv.className = 'total-dimension';
+                totalDiv.innerHTML = `
             Total ${dimension.ladoA.nombre}: <span id="total${dimension.codigo}_A">0</span> | 
             Total ${dimension.ladoB.nombre}: <span id="total${dimension.codigo}_B">0</span>
         `;
-        divDimension.appendChild(totalDiv);
-        
-        form.insertBefore(divDimension, document.getElementById('btnCalcular'));
-    });
-    
-    // Configurar eventos después de generar todo
-    configurarEventos();
-}
+                divDimension.appendChild(totalDiv);
 
-function calcularTotalesDimension(dimensionCodigo) {
-    let totalA = 0;
-    let totalB = 0;
-    
-    // Seleccionar todos los inputs de esta dimensión
-    const inputsA = document.querySelectorAll(`input[data-dimension="${dimensionCodigo}"][data-lado="A"]`);
-    const inputsB = document.querySelectorAll(`input[data-dimension="${dimensionCodigo}"][data-lado="B"]`);
-    
-    inputsA.forEach(input => {
-        totalA += parseInt(input.value) || 0;
-    });
-    
-    inputsB.forEach(input => {
-        totalB += parseInt(input.value) || 0;
-    });
-    
-    // Actualizar display
-    document.getElementById(`total${dimensionCodigo}_A`).textContent = totalA;
-    document.getElementById(`total${dimensionCodigo}_B`).textContent = totalB;
-    
-    return { totalA, totalB };
-}
+                form.insertBefore(divDimension, document.getElementById('btnCalcular'));
+            });
 
-function calcularTipoPersonalidad() {
-    const resultados = {};
-    let tipo = '';
-    
-    DATOS_PERSONALIDAD.dimensiones.forEach(dimension => {
-        const { totalA, totalB } = calcularTotalesDimension(dimension.codigo);
-        
-        resultados[dimension.codigo] = {
-            [dimension.ladoA.letra]: totalA,
-            [dimension.ladoB.letra]: totalB
-        };
-        
-        // Determinar letra ganadora para esta dimensión
-        tipo += totalA > totalB ? dimension.ladoA.letra : dimension.ladoB.letra;
-    });
-    
-    return {
-        tipo,
-        resultados,
-        descripcion: obtenerDescripcionTipo(tipo)
-    };
-}
+            // Configurar eventos después de generar todo
+            configurarEventos();
+        }
 
-function obtenerDescripcionTipo(tipo) {
-    const descripciones = {
-        'INTJ': 'Arquitecto - Estratégico, innovador y determinado. Planificadores visionarios con gran capacidad para implementar ideas.',
-        'INTP': 'Lógico - Inventivo, curioso y analítico. Amantes del conocimiento y la resolución de problemas complejos.',
-        'ENTJ': 'Comandante - Líder audaz, imaginativo y de fuerte voluntad. Excelentes organizadores y estrategas.',
-        'ENTP': 'Innovador - Inventor inteligente y emprendedor. Creativos que disfrutan debatir y explorar posibilidades.',
-        'INFJ': 'Abogado - Idealista, organizado y determinado. Buscan meaning y tienen fuertes valores.',
-        'INFP': 'Mediador - Poético, amable y altruista. Empatícos y guiados por sus principios.',
-        'ENFJ': 'Protagonista - Líder carismático e inspirador. Persuasive y motivadores naturales.',
-        'ENFP': 'Activista - Entusiasta, creativo y sociable. Espíritus libres llenos de energía y optimismo.',
-        'ISTJ': 'Logístico - Práctico, fact-based y confiable. Responsables y metódicos.',
-        'ISFJ': 'Defensor - Protector, dedicado y cálido. Comprometidos con ayudar a los demás.',
-        'ESTJ': 'Ejecutivo - Administrador excelente, directo y organizado. Gestionan proyectos y personas eficientemente.',
-        'ESFJ': 'Cónsul - Cooperativo, práctico y sociable. Cuidan del bienestar de los demás.',
-        'ISTP': 'Virtuoso - Experimentador audaz y práctico. Maestros en el uso de herramientas y resolución de crisis.',
-        'ISFP': 'Aventurero - Artista flexible y encantador. Disfrutan el momento presente y experiencias nuevas.',
-        'ESTP': 'Emprendedor - Energético, perceptivo y divertido. Excelentes en negociación y acción inmediata.',
-        'ESFP': 'Animador - Espontáneo, entusiasta y sociable. Aman la vida, las personas y las experiencias nuevas.'
-    };
-    
-    return descripciones[tipo] || `Tipo de personalidad ${tipo}`;
-}
+        function calcularTotalesDimension(dimensionCodigo) {
+            let totalA = 0;
+            let totalB = 0;
 
-// Inicializar cuando cargue la página
-document.addEventListener('DOMContentLoaded', function() {
-    generarTestPersonalidad();
-});
+            // Seleccionar todos los inputs de esta dimensión
+            const inputsA = document.querySelectorAll(`input[data-dimension="${dimensionCodigo}"][data-lado="A"]`);
+            const inputsB = document.querySelectorAll(`input[data-dimension="${dimensionCodigo}"][data-lado="B"]`);
+
+            inputsA.forEach(input => {
+                totalA += parseInt(input.value) || 0;
+            });
+
+            inputsB.forEach(input => {
+                totalB += parseInt(input.value) || 0;
+            });
+
+            // Actualizar display
+            document.getElementById(`total${dimensionCodigo}_A`).textContent = totalA;
+            document.getElementById(`total${dimensionCodigo}_B`).textContent = totalB;
+
+            return { totalA, totalB };
+        }
+
+        function calcularTipoPersonalidad() {
+            const resultados = {};
+            let tipo = '';
+
+            DATOS_PERSONALIDAD.dimensiones.forEach(dimension => {
+                const { totalA, totalB } = calcularTotalesDimension(dimension.codigo);
+
+                resultados[dimension.codigo] = {
+                    [dimension.ladoA.letra]: totalA,
+                    [dimension.ladoB.letra]: totalB
+                };
+
+                // Determinar letra ganadora para esta dimensión
+                tipo += totalA > totalB ? dimension.ladoA.letra : dimension.ladoB.letra;
+            });
+
+            return {
+                tipo,
+                resultados,
+                descripcion: obtenerDescripcionTipo(tipo)
+            };
+        }
+
+        function obtenerDescripcionTipo(tipo) {
+            const descripciones = {
+                'INTJ': 'Arquitecto - Estratégico, innovador y determinado. Planificadores visionarios con gran capacidad para implementar ideas.',
+                'INTP': 'Lógico - Inventivo, curioso y analítico. Amantes del conocimiento y la resolución de problemas complejos.',
+                'ENTJ': 'Comandante - Líder audaz, imaginativo y de fuerte voluntad. Excelentes organizadores y estrategas.',
+                'ENTP': 'Innovador - Inventor inteligente y emprendedor. Creativos que disfrutan debatir y explorar posibilidades.',
+                'INFJ': 'Abogado - Idealista, organizado y determinado. Buscan meaning y tienen fuertes valores.',
+                'INFP': 'Mediador - Poético, amable y altruista. Empatícos y guiados por sus principios.',
+                'ENFJ': 'Protagonista - Líder carismático e inspirador. Persuasive y motivadores naturales.',
+                'ENFP': 'Activista - Entusiasta, creativo y sociable. Espíritus libres llenos de energía y optimismo.',
+                'ISTJ': 'Logístico - Práctico, fact-based y confiable. Responsables y metódicos.',
+                'ISFJ': 'Defensor - Protector, dedicado y cálido. Comprometidos con ayudar a los demás.',
+                'ESTJ': 'Ejecutivo - Administrador excelente, directo y organizado. Gestionan proyectos y personas eficientemente.',
+                'ESFJ': 'Cónsul - Cooperativo, práctico y sociable. Cuidan del bienestar de los demás.',
+                'ISTP': 'Virtuoso - Experimentador audaz y práctico. Maestros en el uso de herramientas y resolución de crisis.',
+                'ISFP': 'Aventurero - Artista flexible y encantador. Disfrutan el momento presente y experiencias nuevas.',
+                'ESTP': 'Emprendedor - Energético, perceptivo y divertido. Excelentes en negociación y acción inmediata.',
+                'ESFP': 'Animador - Espontáneo, entusiasta y sociable. Aman la vida, las personas y las experiencias nuevas.'
+            };
+
+            return descripciones[tipo] || `Tipo de personalidad ${tipo}`;
+        }
+
+        // Inicializar cuando cargue la página
+        document.addEventListener('DOMContentLoaded', function () {
+            generarTestPersonalidad();
+        });
     </script>
     <script src="validacion.js">
 
         function configurarEventos() {
-    // Configurar eventos para todos los inputs de puntos
-    document.querySelectorAll('.puntos-input').forEach(input => {
-        input.addEventListener('input', function() {
-            const dimension = this.dataset.dimension;
-            const par = this.dataset.par;
-            
-            validarPar(dimension, par);
-            calcularTotalesDimension(dimension);
-            actualizarEstadoBoton();
-        });
-    });
-    
-    // Configurar evento del formulario
-    document.getElementById('formPersonalidad').addEventListener('submit', function(e) {
-        e.preventDefault();
-        mostrarResultado();
-    });
-}
+            // Configurar eventos para todos los inputs de puntos
+            document.querySelectorAll('.puntos-input').forEach(input => {
+                input.addEventListener('input', function () {
+                    const dimension = this.dataset.dimension;
+                    const par = this.dataset.par;
 
-function validarPar(dimensionCodigo, parId) {
-    const inputA = document.querySelector(`input[data-dimension="${dimensionCodigo}"][data-par="${parId}"][data-lado="A"]`);
-    const inputB = document.querySelector(`input[data-dimension="${dimensionCodigo}"][data-par="${parId}"][data-lado="B"]`);
-    const validacionDiv = document.querySelector(`.validacion-par[data-dimension="${dimensionCodigo}"][data-par="${parId}"]`);
-    
-    const puntosA = parseInt(inputA.value) || 0;
-    const puntosB = parseInt(inputB.value) || 0;
-    const total = puntosA + puntosB;
-    
-    // Reset estilos
-    inputA.style.borderColor = '';
-    inputB.style.borderColor = '';
-    validacionDiv.style.display = 'none';
-    
-    let esValido = true;
-    
-    // Validar suma = 10
-    if (total !== 10) {
-        inputA.style.borderColor = 'red';
-        inputB.style.borderColor = 'red';
-        validacionDiv.style.display = 'block';
-        validacionDiv.textContent = `¡Debe sumar 10 puntos! Actual: ${total}`;
-        esValido = false;
-    }
-    // Validar no sea 5-5
-    else if (puntosA === 5 && puntosB === 5) {
-        inputA.style.borderColor = 'red';
-        inputB.style.borderColor = 'red';
-        validacionDiv.style.display = 'block';
-        validacionDiv.textContent = '¡No puede usar 5-5! Distribuya de manera diferente.';
-        esValido = false;
-    }
-    // Validar rangos individuales
-    else if (puntosA < 0 || puntosA > 10 || puntosB < 0 || puntosB > 10) {
-        inputA.style.borderColor = 'red';
-        inputB.style.borderColor = 'red';
-        validacionDiv.style.display = 'block';
-        validacionDiv.textContent = '¡Los puntos deben estar entre 0 y 10!';
-        esValido = false;
-    }
-    
-    return esValido;
-}
+                    validarPar(dimension, par);
+                    calcularTotalesDimension(dimension);
+                    actualizarEstadoBoton();
+                });
+            });
 
-function validarTodoElFormulario() {
-    let todoValido = true;
-    
-    DATOS_PERSONALIDAD.dimensiones.forEach(dimension => {
-        dimension.pares.forEach(par => {
-            const esValido = validarPar(dimension.codigo, par.id);
-            if (!esValido) {
-                todoValido = false;
+            // Configurar evento del formulario
+            document.getElementById('formPersonalidad').addEventListener('submit', function (e) {
+                e.preventDefault();
+                mostrarResultado();
+            });
+        }
+
+        function validarPar(dimensionCodigo, parId) {
+            const inputA = document.querySelector(`input[data-dimension="${dimensionCodigo}"][data-par="${parId}"][data-lado="A"]`);
+            const inputB = document.querySelector(`input[data-dimension="${dimensionCodigo}"][data-par="${parId}"][data-lado="B"]`);
+            const validacionDiv = document.querySelector(`.validacion-par[data-dimension="${dimensionCodigo}"][data-par="${parId}"]`);
+
+            const puntosA = parseInt(inputA.value) || 0;
+            const puntosB = parseInt(inputB.value) || 0;
+            const total = puntosA + puntosB;
+
+            // Reset estilos
+            inputA.style.borderColor = '';
+            inputB.style.borderColor = '';
+            validacionDiv.style.display = 'none';
+
+            let esValido = true;
+
+            // Validar suma = 10
+            if (total !== 10) {
+                inputA.style.borderColor = 'red';
+                inputB.style.borderColor = 'red';
+                validacionDiv.style.display = 'block';
+                validacionDiv.textContent = `¡Debe sumar 10 puntos! Actual: ${total}`;
+                esValido = false;
             }
-        });
-    });
-    
-    return todoValido;
-}
+            // Validar no sea 5-5
+            else if (puntosA === 5 && puntosB === 5) {
+                inputA.style.borderColor = 'red';
+                inputB.style.borderColor = 'red';
+                validacionDiv.style.display = 'block';
+                validacionDiv.textContent = '¡No puede usar 5-5! Distribuya de manera diferente.';
+                esValido = false;
+            }
+            // Validar rangos individuales
+            else if (puntosA < 0 || puntosA > 10 || puntosB < 0 || puntosB > 10) {
+                inputA.style.borderColor = 'red';
+                inputB.style.borderColor = 'red';
+                validacionDiv.style.display = 'block';
+                validacionDiv.textContent = '¡Los puntos deben estar entre 0 y 10!';
+                esValido = false;
+            }
 
-function actualizarEstadoBoton() {
-    const boton = document.getElementById('btnCalcular');
-    const todoValido = validarTodoElFormulario();
-    
-    boton.disabled = !todoValido;
-    
-    if (todoValido) {
-        boton.style.background = '#4CAF50';
-        boton.title = 'Haga clic para calcular su tipo de personalidad';
-    } else {
-        boton.style.background = '#ccc';
-        boton.title = 'Complete correctamente todas las distribuciones de puntos';
-    }
-}
+            return esValido;
+        }
 
-function mostrarResultado() {
-    const resultado = calcularTipoPersonalidad();
-    const resultadoDiv = document.getElementById('resultado');
-    const contenidoDiv = document.getElementById('resultadoContenido');
-    
-    let html = `
+        function validarTodoElFormulario() {
+            let todoValido = true;
+
+            DATOS_PERSONALIDAD.dimensiones.forEach(dimension => {
+                dimension.pares.forEach(par => {
+                    const esValido = validarPar(dimension.codigo, par.id);
+                    if (!esValido) {
+                        todoValido = false;
+                    }
+                });
+            });
+
+            return todoValido;
+        }
+
+        function actualizarEstadoBoton() {
+            const boton = document.getElementById('btnCalcular');
+            const todoValido = validarTodoElFormulario();
+
+            boton.disabled = !todoValido;
+
+            if (todoValido) {
+                boton.style.background = '#4CAF50';
+                boton.title = 'Haga clic para calcular su tipo de personalidad';
+            } else {
+                boton.style.background = '#ccc';
+                boton.title = 'Complete correctamente todas las distribuciones de puntos';
+            }
+        }
+
+        function mostrarResultado() {
+            const resultado = calcularTipoPersonalidad();
+            const resultadoDiv = document.getElementById('resultado');
+            const contenidoDiv = document.getElementById('resultadoContenido');
+
+            let html = `
         <div style="text-align: center; margin-bottom: 20px;">
             <h3 style="font-size: 2em; color: #2c3e50; margin: 0;">${resultado.tipo}</h3>
             <p style="font-style: italic; color: #7f8c8d;">${resultado.descripcion}</p>
@@ -345,17 +348,17 @@ function mostrarResultado() {
         
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 20px;">
     `;
-    
-    // Mostrar resultados por dimensión
-    DATOS_PERSONALIDAD.dimensiones.forEach(dimension => {
-        const dimResult = resultado.resultados[dimension.codigo];
-        const letraA = dimension.ladoA.letra;
-        const letraB = dimension.ladoB.letra;
-        const totalA = dimResult[letraA];
-        const totalB = dimResult[letraB];
-        const ganador = totalA > totalB ? letraA : letraB;
-        
-        html += `
+
+            // Mostrar resultados por dimensión
+            DATOS_PERSONALIDAD.dimensiones.forEach(dimension => {
+                const dimResult = resultado.resultados[dimension.codigo];
+                const letraA = dimension.ladoA.letra;
+                const letraB = dimension.ladoB.letra;
+                const totalA = dimResult[letraA];
+                const totalB = dimResult[letraB];
+                const ganador = totalA > totalB ? letraA : letraB;
+
+                html += `
             <div style="border: 2px solid ${ganador === letraA ? dimension.ladoA.color : dimension.ladoB.color}; 
                        padding: 15px; border-radius: 8px; background: white;">
                 <h4 style="margin-top: 0;">${dimension.nombre.split(' - ')[0]}</h4>
@@ -372,12 +375,12 @@ function mostrarResultado() {
                 </div>
             </div>
         `;
-    });
-    
-    html += `</div>`;
-    
-    // Botón para reiniciar
-    html += `
+            });
+
+            html += `</div>`;
+
+            // Botón para reiniciar
+            html += `
         <div style="text-align: center;">
             <button type="button" onclick="reiniciarTest()" 
                     style="background: #e74c3c; color: white; padding: 10px 20px; 
@@ -386,39 +389,40 @@ function mostrarResultado() {
             </button>
         </div>
     `;
-    
-    contenidoDiv.innerHTML = html;
-    resultadoDiv.style.display = 'block';
-    
-    // Scroll al resultado
-    resultadoDiv.scrollIntoView({ behavior: 'smooth' });
-}
 
-function reiniciarTest() {
-    // Limpiar todos los inputs
-    document.querySelectorAll('.puntos-input').forEach(input => {
-        input.value = '0';
-    });
-    
-    // Resetear validaciones
-    document.querySelectorAll('.validacion-par').forEach(div => {
-        div.style.display = 'none';
-    });
-    
-    // Resetear totales
-    DATOS_PERSONALIDAD.dimensiones.forEach(dimension => {
-        calcularTotalesDimension(dimension.codigo);
-    });
-    
-    // Ocultar resultado
-    document.getElementById('resultado').style.display = 'none';
-    
-    // Resetear botón
-    actualizarEstadoBoton();
-    
-    // Scroll al inicio
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+            contenidoDiv.innerHTML = html;
+            resultadoDiv.style.display = 'block';
+
+            // Scroll al resultado
+            resultadoDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function reiniciarTest() {
+            // Limpiar todos los inputs
+            document.querySelectorAll('.puntos-input').forEach(input => {
+                input.value = '0';
+            });
+
+            // Resetear validaciones
+            document.querySelectorAll('.validacion-par').forEach(div => {
+                div.style.display = 'none';
+            });
+
+            // Resetear totales
+            DATOS_PERSONALIDAD.dimensiones.forEach(dimension => {
+                calcularTotalesDimension(dimension.codigo);
+            });
+
+            // Ocultar resultado
+            document.getElementById('resultado').style.display = 'none';
+
+            // Resetear botón
+            actualizarEstadoBoton();
+
+            // Scroll al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
+
 </html>

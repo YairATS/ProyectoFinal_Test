@@ -44,6 +44,8 @@ function calcularResultadoVark() {
     const respuestas = recolectarRespuestasVark();
     const resultado = procesarResultadoVark(respuestas);
     mostrarResultadoVark(resultado);
+
+
 }
 
 function recolectarRespuestasVark() {

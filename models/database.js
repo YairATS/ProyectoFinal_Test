@@ -52,16 +52,16 @@ class Database {
   // Relaciones entre los modelos
   initializeRelationships() {
     // Relaciones Alumno
-    this.Alumno.belongsTo(this.Grupo, { foreignKey: 'id_grupo' });
-    this.Alumno.hasMany(this.TestVark, { foreignKey: 'id_alumno' });
-    this.Alumno.hasMany(this.TestPersonalidad, { foreignKey: 'id_alumno' });
+    this.Alumno.belongsTo(this.Grupo, { foreignKey: 'id_grupo', as: 'grupo' });
+    this.Alumno.hasMany(this.TestVark, { foreignKey: 'id_alumno', as: 'testsVark' });
+    this.Alumno.hasMany(this.TestPersonalidad, { foreignKey: 'id_alumno', as: 'testsPersonalidad' });
 
     // Relaciones Grupo
-    this.Grupo.hasMany(this.Alumno, { foreignKey: 'id_grupo' });
+    this.Grupo.hasMany(this.Alumno, { foreignKey: 'id_grupo', as: 'alumnos' });
 
     // Relaciones Tests
-    this.TestVark.belongsTo(this.Alumno, { foreignKey: 'id_alumno' });
-    this.TestPersonalidad.belongsTo(this.Alumno, { foreignKey: 'id_alumno' });
+    this.TestVark.belongsTo(this.Alumno, { foreignKey: 'id_alumno', as: 'alumno' });
+    this.TestPersonalidad.belongsTo(this.Alumno, { foreignKey: 'id_alumno', as: 'alumno' });
   }
 
   async testConnection() {

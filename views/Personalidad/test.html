@@ -11,6 +11,16 @@
         <h1>Test de Personalidad - Myers-Briggs</h1>
         <p><strong>Instrucciones:</strong> Para cada par, distribuya 10 puntos entre las dos opciones. <strong>No use 5-5</strong>.</p>
         
+        <div style="background: #f5f5f5; padding: 20px; margin-bottom: 20px; border-radius: 8px;">
+            <h3>Información del Estudiante</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <input type="text" id="nombre" placeholder="Nombre" required>
+                <input type="text" id="apellido" placeholder="Apellido">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="text" id="matricula" placeholder="Matrícula">
+            </div>
+        </div>
+
         <form id="formPersonalidad">
             <!-- Las dimensiones se generan automáticamente aquí -->
             <button type="submit" id="btnCalcular" disabled>Calcular Mi Tipo de Personalidad</button>

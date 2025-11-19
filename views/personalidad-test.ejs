@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= typeof title !== 'undefined' ? title : 'Tests VARK y Personalidad' %></title>
+    <link rel="stylesheet" href="/css/perso.css">
+</head>
+<body>
+
+<%- include('partials/navbar') %>
+
+<div class="container">
+    <h1>Test de Personalidad - Myers-Briggs</h1>
+    
+    <!-- Formulario de datos del alumno -->
+    <div class="alumno-form-section">
+        <h3>Datos del Alumno</h3>
+        <div class="form-group">
+            <label for="nombre">Nombre *</label>
+            <input type="text" id="nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido">
+        </div>
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+            <label for="matricula">Matrícula</label>
+            <input type="text" id="matricula">
+        </div>
+        <div class="form-group">
+            <label for="id_grupo">Grupo</label>
+            <select id="id_grupo">
+                <option value="">Selecciona un grupo</option>
+                <% grupos.forEach(grupo => { %>
+                    <option value="<%= grupo.id_grupo %>"><%= grupo.nombre_grupo %></option>
+                <% }) %>
+            </select>
+        </div>
+    </div>
+
+    <hr>
+
+    <p><strong>Instrucciones:</strong> Para cada par, distribuya 10 puntos entre las dos opciones. <strong>No use 5-5</strong>.</p>
+    
+    <form id="formPersonalidad">
+        <div id="dimensiones-personalidad"></div>
+        <button type="submit" id="btnCalcular" disabled class="btn btn-primary">Calcular Mi Tipo de Personalidad</button>
+    </form>
+
+    <div id="resultado" style="display: none;">
+        <h2>Tu Resultado</h2>
+        <div id="resultadoContenido"></div>
+    </div>
+
+    <div id="loading" style="display: none;">
+        <p>Guardando resultados...</p>
+    </div>
+</div>
+
+<script src="/js/personalidad-data.js"></script>
+<script src="/js/personalidad.js"></script>
+
+<%- include('partials/footer') %>
