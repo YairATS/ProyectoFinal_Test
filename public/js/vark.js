@@ -148,23 +148,23 @@ async function mostrarResultadoVark(resultado, dataServidor) {
 }
 
 async function cargarEstadisticasGrupoVark(idGrupo) {
-  try {
-    const response = await fetch(`/api/dashboard/vark/grupo/${idGrupo}`);
-    const data = await response.json();
+    try {
+        const response = await fetch(`/api/dashboard/vark/grupo/${idGrupo}`);
+        const data = await response.json();
+        
+        if (!response.ok) {
+            console.error('Error al cargar estadísticas:', data);
+            return;
+        }
 
-    if (!response.ok) {
-      console.error("Error al cargar estadísticas:", data);
-      return;
-    }
+        const descripciones = {
+            'V': '👁️ Visual',
+            'A': '👂 Auditivo',
+            'R': '📝 Lectura/Escritura',
+            'K': '✋ Kinestésico'
+        };
 
-    const descripciones = {
-      V: "👁️ Visual",
-      A: "👂 Auditivo",
-      R: "📝 Lectura/Escritura",
-      K: "✋ Kinestésico",
-    };
-
-    let html = `
+        let html = `
             <div style="margin-top: 2rem; padding: 1.5rem; background: #f0f7ff; border-radius: 8px; border-left: 4px solid #2196F3;">
                 <h3 style="color: #1976D2; margin-top: 0;">
                     👥 Resultados de tu Grupo: ${data.grupo}
@@ -173,62 +173,141 @@ async function cargarEstadisticasGrupoVark(idGrupo) {
                 <div style="background: white; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
                     <p style="font-size: 1.1rem; margin: 0;">
                         <strong>Estilo predominante del grupo:</strong> 
-                        <span style="color: #27ae60; font-size: 1.3rem;">${
-                          descripciones[data.estiloPredominante]
-                        }</span>
+                        <span style="color: #27ae60; font-size: 1.3rem;">${descripciones[data.estiloPredominante]}</span>
                     </p>
                     <p style="color: #666; margin: 0.5rem 0 0 0;">
-                        <small>Basado en ${data.totalTests} test${
-      data.totalTests !== 1 ? "s" : ""
-    } realizado${data.totalTests !== 1 ? "s" : ""}</small>
+                        <small>Basado en ${data.totalTests} test${data.totalTests !== 1 ? 's' : ''} realizado${data.totalTests !== 1 ? 's' : ''}</small>
                     </p>
                 </div>
 
-                <h4 style="color: #1976D2; margin-top: 1.5rem;">Distribución del grupo:</h4>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; align-items: center;">
+                    <!-- Gráfica -->
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px;">
+                        <canvas id="chartVarkGrupo" style="max-height: 300px;"></canvas>
+                    </div>
+                    
+                    <!-- Detalles -->
+                    <div>
+                        <h4 style="color: #1976D2; margin-bottom: 1rem;">Distribución del grupo:</h4>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
         `;
 
-    // Mostrar cada estilo con su cantidad
-    ["V", "A", "R", "K"].forEach((estilo) => {
-      const cantidad = data.detalle[estilo];
-      const porcentaje =
-        data.totalTests > 0
-          ? Math.round((cantidad / data.totalTests) * 100)
-          : 0;
-      const esPredominante = estilo === data.estiloPredominante;
-
-      html += `
-                <div style="background: ${
-                  esPredominante ? "#e8f5e9" : "white"
-                }; 
+        // Mostrar cada estilo con su cantidad
+        ['V', 'A', 'R', 'K'].forEach(estilo => {
+            const cantidad = data.detalle[estilo];
+            const porcentaje = data.totalTests > 0 ? Math.round((cantidad / data.totalTests) * 100) : 0;
+            const esPredominante = estilo === data.estiloPredominante;
+            
+            html += `
+                <div style="background: ${esPredominante ? '#e8f5e9' : 'white'}; 
                            padding: 1rem; 
                            border-radius: 4px; 
-                           border: 2px solid ${
-                             esPredominante ? "#4CAF50" : "#ddd"
-                           };">
-                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">${
-                      descripciones[estilo]
-                    }</div>
-                    <div style="font-size: 2rem; font-weight: bold; color: #2c3e50;">${cantidad}</div>
-                    <div style="color: #666; font-size: 0.9rem;">${porcentaje}% del grupo</div>
-                    ${
-                      esPredominante
-                        ? '<div style="color: #27ae60; margin-top: 0.5rem; font-weight: bold;">★ Predominante</div>'
-                        : ""
-                    }
+                           border: 2px solid ${esPredominante ? '#4CAF50' : '#ddd'};
+                           display: flex;
+                           justify-content: space-between;
+                           align-items: center;">
+                    <div>
+                        <div style="font-weight: bold;">${descripciones[estilo]}</div>
+                        ${esPredominante ? '<small style="color: #27ae60;">★ Predominante</small>' : ''}
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 1.5rem; font-weight: bold; color: #2c3e50;">${cantidad}</div>
+                        <small style="color: #666;">${porcentaje}%</small>
+                    </div>
                 </div>
             `;
-    });
+        });
 
-    html += `
+        html += `
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
 
-    document.getElementById("estadisticas-grupo").innerHTML = html;
-  } catch (error) {
-    console.error("Error al cargar estadísticas del grupo:", error);
-  }
+        document.getElementById('estadisticas-grupo').innerHTML = html;
+        
+        // Crear la gráfica de pie
+        crearGraficaVark(data);
+        
+    } catch (error) {
+        console.error('Error al cargar estadísticas del grupo:', error);
+    }
+}
+
+function crearGraficaVark(data) {
+    const ctx = document.getElementById('chartVarkGrupo');
+    
+    if (!ctx) {
+        console.error('Canvas no encontrado');
+        return;
+    }
+
+    const colores = {
+        'V': '#2196F3',  // Azul para Visual
+        'A': '#4CAF50',  // Verde para Auditivo
+        'R': '#FF9800',  // Naranja para Lectura/Escritura
+        'K': '#9C27B0'   // Morado para Kinestésico
+    };
+
+    const labels = {
+        'V': '👁️ Visual',
+        'A': '👂 Auditivo',
+        'R': '📝 Lectura/Escritura',
+        'K': '✋ Kinestésico'
+    };
+
+    const dataValues = [];
+    const backgroundColors = [];
+    const labelsArray = [];
+
+    ['V', 'A', 'R', 'K'].forEach(estilo => {
+        const cantidad = data.detalle[estilo];
+        if (cantidad > 0) {
+            dataValues.push(cantidad);
+            backgroundColors.push(colores[estilo]);
+            labelsArray.push(labels[estilo]);
+        }
+    });
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labelsArray,
+            datasets: [{
+                data: dataValues,
+                backgroundColor: backgroundColors,
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 15,
+                        font: {
+                            size: 12
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = Math.round((value / total) * 100);
+                            return `${label}: ${value} (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // Event listeners

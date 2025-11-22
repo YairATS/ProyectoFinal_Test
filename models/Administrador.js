@@ -1,48 +1,52 @@
 import { DataTypes } from 'sequelize';
 
 export default (sequelize) => {
-    return sequelize.define('Administrador', {
+    const Administrador = sequelize.define('Administrador', {
         id_administrador: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        email: {
-            type: DataTypes.STRING(255),
+        usuario: {
+            type: DataTypes.STRING(50),
             allowNull: false,
             unique: true,
             validate: {
-                isEmail: true
+                notEmpty: true,
+                len: [3, 50]
             }
         },
         password_hash: {
             type: DataTypes.STRING(255),
             allowNull: false
         },
-        nombre: {
-            type: DataTypes.STRING(100),
+        nombre_completo: {
+            type: DataTypes.STRING(200),
             allowNull: false
         },
-        apellido: {
-            type: DataTypes.STRING(100),
-            allowNull: true
-        },
-        fecha_registro: {
-            type: DataTypes.DATE,
+        email: {
+            type: DataTypes.STRING(150),
             allowNull: false,
-            defaultValue: DataTypes.NOW
-        },
-        ultimo_acceso: {
-            type: DataTypes.DATE,
-            allowNull: true
+            unique: true,
+            validate: {
+                isEmail: true
+            }
         },
         activo: {
             type: DataTypes.BOOLEAN,
-            allowNull: false,
             defaultValue: true
+        },
+        fecha_creacion: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
+        },
+        ultimo_acceso: {
+            type: DataTypes.DATE
         }
     }, {
         tableName: 'administradores',
         timestamps: false
     });
+
+    return Administrador;
 };

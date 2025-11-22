@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogos - Sistema de Tests</title>
+    <style>
+        /* Copiar todos los estilos del archivo que compartiste */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f6fa;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #a07369 0%, #3f302c 100%);
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-header p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu-item {
+            margin-bottom: 10px;
+        }
+
+        .menu-item a {
+            display: block;
+            padding: 12px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .menu-item a:hover,
+        .menu-item a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-item.logout a {
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        .menu-item.logout a:hover {
+            background: rgba(255, 0, 0, 0.3);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #a07369 0%, #3f302c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* TABS */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: white;
+            border: none;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #f5f6fa;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #a07369 0%, #3f302c 100%);
+            color: white;
+        }
+
+        /* CARD */
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .card.active {
+            display: block;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-header h2 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        .btn-add {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #a07369 0%, #3f302c 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-add:hover {
+            opacity: 0.9;
+        }
+
+        /* TABLA */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th {
+            background: #f5f6fa;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+            color: #666;
+            border-bottom: 2px solid #ddd;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* BOTONES DE ACCIÓN */
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-edit,
+        .btn-delete,
+        .btn-view {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .btn-edit {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-view {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-edit:hover,
+        .btn-delete:hover,
+        .btn-view:hover {
+            opacity: 0.8;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #a07369;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .modal-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-cancel {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-save {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-cancel:hover,
+        .btn-save:hover {
+            opacity: 0.9;
+        }
+
+        /* MENSAJES */
+        .message {
+            padding: 12px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* LOADING */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .tabs {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🧠 MindMetrics</h2>
+                <p>Panel Administrativo</p>
+            </div>
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="/admin/dashboard">📊 Dashboard</a>
+                </li>
+                <li class="menu-item">
+                    <a href="/admin/catalogos" class="active">📚 Catálogos</a>
+                </li>
+                <li class="menu-item">
+                    <a href="/admin/resultados">📈 Resultados</a>
+                </li>
+                <li class="menu-item logout">
+                    <a href="#" onclick="cerrarSesion()">🚪 Cerrar Sesión</a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <div class="header">
+                <h1>Gestión de Catálogos</h1>
+                <div class="user-info">
+                    <div class="user-avatar" id="user-avatar"></div>
+                    <span id="user-name"></span>
+                </div>
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab active" onclick="cambiarTab('grupos')">Grupos</button>
+                <button class="tab" onclick="cambiarTab('alumnos')">Alumnos</button>
+            </div>
+
+            <!-- CARD GRUPOS -->
+            <div class="card active" id="card-grupos">
+                <div id="message-grupos" class="message"></div>
+                <div class="card-header">
+                    <h2>Catálogo de Grupos</h2>
+                    <button class="btn-add" onclick="abrirModalNuevoGrupo()">➕ Nuevo Grupo</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre del Grupo</th>
+                            <th>Descripción</th>
+                            <th>Fecha Creación</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-grupos">
+                        <tr>
+                            <td colspan="6" class="loading">Cargando grupos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- CARD ALUMNOS -->
+            <div class="card" id="card-alumnos">
+                <div id="message-alumnos" class="message"></div>
+                <div class="card-header">
+                    <h2>Catálogo de Alumnos</h2>
+                    <button class="btn-add" onclick="abrirModalNuevoAlumno()">➕ Nuevo Alumno</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Completo</th>
+                            <th>Email</th>
+                            <th>Matrícula</th>
+                            <th>Grupo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-alumnos">
+                        <tr>
+                            <td colspan="7" class="loading">Cargando alumnos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL GRUPO -->
+    <div class="modal" id="modal-grupo">
+        <div class="modal-content">
+            <h3 id="modal-grupo-title">Nuevo Grupo</h3>
+            <form id="form-grupo">
+                <input type="hidden" id="grupo-id" />
+                <div class="form-group">
+                    <label for="grupo-nombre">Nombre del Grupo *</label>
+                    <input type="text" id="grupo-nombre" placeholder="Ej: Grupo 1A" required maxlength="100" />
+                </div>
+                <div class="form-group">
+                    <label for="grupo-descripcion">Descripción</label>
+                    <input type="text" id="grupo-descripcion" placeholder="Ej: Primer semestre turno matutino" maxlength="200" />
+                </div>
+                <div class="form-group">
+                    <label for="grupo-activo">Estado</label>
+                    <select id="grupo-activo">
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="cerrarModalGrupo()">Cancelar</button>
+                    <button type="submit" class="btn-save">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL ALUMNO -->
+    <div class="modal" id="modal-alumno">
+        <div class="modal-content">
+            <h3 id="modal-alumno-title">Nuevo Alumno</h3>
+            <form id="form-alumno">
+                <input type="hidden" id="alumno-id" />
+                <div class="form-group">
+                    <label for="alumno-nombre">Nombre *</label>
+                    <input type="text" id="alumno-nombre" required maxlength="100" />
+                </div>
+                <div class="form-group">
+                    <label for="alumno-apellido">Apellido</label>
+                    <input type="text" id="alumno-apellido" maxlength="100" />
+                </div>
+                <div class="form-group">
+                    <label for="alumno-email">Email *</label>
+                    <input type="email" id="alumno-email" required maxlength="255" />
+                </div>
+                <div class="form-group">
+                    <label for="alumno-matricula">Matrícula</label>
+                    <input type="text" id="alumno-matricula" maxlength="50" />
+                </div>
+                <div class="form-group">
+                    <label for="alumno-grupo">Grupo</label>
+                    <select id="alumno-grupo">
+                        <option value="">Sin grupo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="alumno-activo">Estado</label>
+                    <select id="alumno-activo">
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="cerrarModalAlumno()">Cancelar</button>
+                    <button type="submit" class="btn-save">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/catalogos.js"></script>
+</body>
+</html>

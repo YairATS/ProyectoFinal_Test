@@ -372,8 +372,16 @@ async function cargarEstadisticasGrupoPersonalidad(idGrupo) {
                     </p>
                 </div>
 
-                <h4 style="color: #7B1FA2; margin-top: 1.5rem;">Distribución de tipos en el grupo:</h4>
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; margin-top: 1rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; align-items: start;">
+                    <!-- Gráfica -->
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px;">
+                        <canvas id="chartPersonalidadGrupo" style="max-height: 350px;"></canvas>
+                    </div>
+                    
+                    <!-- Detalles -->
+                    <div>
+                        <h4 style="color: #7B1FA2; margin-bottom: 1rem;">Distribución de tipos:</h4>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; max-height: 350px; overflow-y: auto;">
         `;
 
         // Mostrar cada tipo con su cantidad
@@ -386,24 +394,106 @@ async function cargarEstadisticasGrupoPersonalidad(idGrupo) {
                            border-radius: 4px; 
                            border: 2px solid ${esPredominante ? '#4CAF50' : '#ddd'};
                            text-align: center;">
-                    <div style="font-weight: bold; font-size: 1.2rem; color: #2c3e50;">${item.tipo_personalidad}</div>
-                    <div style="font-size: 1.5rem; font-weight: bold; color: #27ae60; margin: 0.25rem 0;">${item.cantidad}</div>
-                    <div style="color: #666; font-size: 0.85rem;">${item.porcentaje}%</div>
-                    ${esPredominante ? '<div style="color: #27ae60; margin-top: 0.25rem; font-size: 0.9rem;">★</div>' : ''}
+                    <div style="font-weight: bold; font-size: 1.1rem; color: #2c3e50;">${item.tipo_personalidad}</div>
+                    <div style="font-size: 1.3rem; font-weight: bold; color: #27ae60; margin: 0.25rem 0;">${item.cantidad}</div>
+                    <small style="color: #666;">${item.porcentaje}%</small>
+                    ${esPredominante ? '<div style="color: #27ae60; font-size: 0.8rem;">★</div>' : ''}
                 </div>
             `;
         });
 
         html += `
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
 
         document.getElementById('estadisticas-grupo').innerHTML = html;
         
+        // Crear la gráfica de pie
+        crearGraficaPersonalidad(data);
+        
     } catch (error) {
         console.error('Error al cargar estadísticas del grupo:', error);
     }
+}
+
+function crearGraficaPersonalidad(data) {
+    const ctx = document.getElementById('chartPersonalidadGrupo');
+    
+    if (!ctx) {
+        console.error('Canvas no encontrado');
+        return;
+    }
+
+    // Paleta de colores para los 16 tipos
+    const coloresPaleta = [
+        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+        '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF',
+        '#4BC0C0', '#FF6384', '#36A2EB', '#FFCE56',
+        '#9966FF', '#FF9F40', '#4BC0C0', '#C9CBCF'
+    ];
+
+    const labels = data.distribucion.map(item => item.tipo_personalidad);
+    const dataValues = data.distribucion.map(item => item.cantidad);
+    const backgroundColors = data.distribucion.map((item, index) => coloresPaleta[index % coloresPaleta.length]);
+
+    new Chart(ctx, {
+        type: 'doughnut', // Usamos doughnut para personalidad (más tipos)
+        data: {
+            labels: labels,
+            datasets: [{
+                data: dataValues,
+                backgroundColor: backgroundColors,
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        padding: 10,
+                        font: {
+                            size: 11
+                        },
+                        generateLabels: function(chart) {
+                            const data = chart.data;
+                            if (data.labels.length && data.datasets.length) {
+                                return data.labels.map((label, i) => {
+                                    const value = data.datasets[0].data[i];
+                                    const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return {
+                                        text: `${label} (${percentage}%)`,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        hidden: false,
+                                        index: i
+                                    };
+                                });
+                            }
+                            return [];
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = Math.round((value / total) * 100);
+                            return `${label}: ${value} estudiantes (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 function reiniciarTest() {

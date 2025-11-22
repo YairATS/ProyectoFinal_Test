@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindMetrics | Personality & Learning Style Assessments</title>
+    <title>MindMetrics | Evaluaciones de Personalidad y Estilos de Aprendizaje</title>
     <style>
         /* Global Variables */
         :root {
@@ -257,6 +257,31 @@
             color: #bdc3c7;
             font-size: 0.9rem;
         }
+
+        /* Video Intro Section */
+        .video-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
         
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -281,9 +306,31 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Discover Your Learning Style & Personality Type</h1>
-            <p>Take our scientifically validated assessments to better understand how you learn, communicate, and interact with the world around you.</p>
-            <a href="#tests" class="cta-button">Start Your Assessment</a>
+            <h1>Descubre tu tipo de Personalidad y tipo de Aprendizaje</h1>
+            <p>Realiza nuestras evaluaciones para comprender mejor cómo aprendes, te comunicas e interactúas con el mundo que te rodea.</p>
+        </div>
+    </section>
+
+    <!-- Video Intro Section -->
+    <section class="video-section">
+        <div class="container">
+            <div class="video-container">
+                <div class="section-title">
+                    <h2>Conoce MindMetrics en 2 minutos</h2>
+                    <p>Descubre cómo nuestras evaluaciones pueden ayudarte a entender mejor tu forma de aprender y tu personalidad</p>
+                </div>
+                <div class="video-wrapper">
+                    <video controls style="width: 100%; height: auto; border-radius: 8px;">
+                        <!-- Agrega diferentes formatos para compatibilidad -->
+                        <source src="/video/intro.mp4" type="video/mp4">
+                        <source src="/video/intro.webm" type="video/webm">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                </div>
+                <p style="color: var(--text-light); font-size: 0.9rem;">
+                    * Video introductorio explicando los beneficios de nuestras evaluaciones
+                </p>
+            </div>
         </div>
     </section>
 
@@ -291,8 +338,8 @@
     <section class="section" id="vark">
         <div class="container">
             <div class="section-title">
-                <h2>VARK Learning Styles Assessment</h2>
-                <p>Discover your preferred learning methods and optimize your study techniques</p>
+                <h2>Estilos de aprendizaje VARK</h2>
+                <p>Descubre tus métodos de aprendizaje preferidos y optimiza tus técnicas de estudio.</p>
             </div>
             <div class="content-grid">
                 <div class="card">
@@ -300,8 +347,8 @@
                         <span>👁️</span>
                     </div>
                     <div class="card-content">
-                        <h3>Visual Learners</h3>
-                        <p>Prefer using pictures, images, diagrams, colors, and spatial understanding to learn.</p>
+                        <h3>Visual</h3>
+                        <p>Prefieren utilizar información visual - imágenes, gráficos, vídeos y animaciones.</p>
                     </div>
                 </div>
                 <div class="card">
@@ -309,8 +356,8 @@
                         <span>👂</span>
                     </div>
                     <div class="card-content">
-                        <h3>Aural Learners</h3>
-                        <p>Learn best through listening - lectures, discussions, podcasts, and verbal explanations.</p>
+                        <h3>Auditivo</h3>
+                        <p>Aprenden mejor con información auditiva - sonidos, música, audios y podcasts.</p>
                     </div>
                 </div>
                 <div class="card">
@@ -318,8 +365,8 @@
                         <span>📖</span>
                     </div>
                     <div class="card-content">
-                        <h3>Read/Write Learners</h3>
-                        <p>Prefer information displayed as words - reading, writing, lists, and text-based materials.</p>
+                        <h3>Lectura/Escritura</h3>
+                        <p>Prefieren leer y escribir información - libros, revistas, blogs y documentos digitales.</p>
                     </div>
                 </div>
                 <div class="card">
@@ -327,13 +374,13 @@
                         <span>✋</span>
                     </div>
                     <div class="card-content">
-                        <h3>Kinesthetic Learners</h3>
-                        <p>Learn through experience and practice - simulations, experiments, hands-on activities.</p>
+                        <h3>Kinestésico</h3>
+                        <p>Aprenden a través de la acción - ejercicios físicos, juegos y actividades prácticas.</p>
                     </div>
                 </div>
             </div>
             <div style="text-align: center; margin-top: 40px;">
-                <a href="/test-vark" class="test-link">Take the VARK Learning Styles Test</a>
+                <a href="/test-vark" class="test-link">Realiza el Test de aprendizaje VARK</a>
             </div>
         </div>
     </section>
@@ -342,8 +389,8 @@
     <section class="section" id="personality" style="background-color: #f5f7fa;">
         <div class="container">
             <div class="section-title">
-                <h2>Jung & Briggs Myers Personality Test</h2>
-                <p>Understand your personality type based on Carl Jung's theory and the Myers-Briggs Type Indicator</p>
+                <h2>Test de personalidad de Jung y Myers-Briggs</h2>
+                <p>Comprende tu tipo de personalidad basado en la teoría de Carl Jung y el Indicador de Tipo Myers-Briggs</p>
             </div>
             <div class="content-grid">
                 <div class="card">
@@ -351,8 +398,8 @@
                         <span>🧠</span>
                     </div>
                     <div class="card-content">
-                        <h3>How It Works</h3>
-                        <p>The assessment categorizes individuals into 16 distinct personality types based on four dichotomies: Extraversion/Introversion, Sensing/Intuition, Thinking/Feeling, and Judging/Perceiving.</p>
+                        <h3>Cómo funciona</h3>
+                        <p>La evaluación categoriza a las personas en 16 tipos de personalidad distintos basándose en cuatro dicotomías: Extraversión/Introversión, Sensación/Intuición, Pensamiento/Sentimiento y Juicio/Percepción.</p>
                     </div>
                 </div>
                 <div class="card">
@@ -360,8 +407,8 @@
                         <span>📊</span>
                     </div>
                     <div class="card-content">
-                        <h3>Benefits</h3>
-                        <p>Understanding your personality type can help improve self-awareness, communication skills, career choices, relationships, and personal development.</p>
+                        <h3>Beneficios</h3>
+                        <p>Entender tu tipo de personalidad puede ayudarte a mejorar la autoconocimiento, habilidades de comunicación, elecciones de carrera, relaciones y desarrollo personal.</p>
                     </div>
                 </div>
                 <div class="card">
@@ -369,13 +416,13 @@
                         <span>🔍</span>
                     </div>
                     <div class="card-content">
-                        <h3>Scientific Foundation</h3>
-                        <p>Based on Carl Jung's theory of psychological types, further developed by Katharine Cook Briggs and her daughter Isabel Briggs Myers.</p>
+                        <h3>Fundamento Científico</h3>
+                        <p>Basado en la teoría de tipos psicológicos de Carl Jung, desarrollada posteriormente por Katharine Cook Briggs e Isabel Briggs Myers.</p>
                     </div>
                 </div>
             </div>
             <div style="text-align: center; margin-top: 40px;">
-                <a href="/test-personalidad" class="test-link">Take the Personality Test</a>
+                <a href="/test-personalidad" class="test-link">Realiza el Test de Personalidad</a>
             </div>
         </div>
     </section>
@@ -384,13 +431,13 @@
     <section class="section" id="contact">
         <div class="container">
             <div class="section-title">
-                <h2>Contact Us</h2>
-                <p>Have questions about our assessments or need support? Get in touch with our team.</p>
+                <h2>Contáctanos</h2>
+                <p>¿Tienes preguntas sobre nuestras evaluaciones o necesitas soporte? Ponte en contacto con nuestro equipo.</p>
             </div>
             <div class="contact-form">
                 <form id="contactForm">
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Nombre</label>
                         <input type="text" id="name" name="nombre" required>
                     </div>
                     <div class="form-group">
@@ -398,10 +445,10 @@
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="message">Message</label>
+                        <label for="message">Mensaje</label>
                         <textarea id="message" name="mensaje" required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
+                    <button type="submit" class="submit-btn">Enviar Mensaje</button>
                     <div id="mensaje" style="margin-top: 15px; display: none; padding: 10px; border-radius: 4px;"></div>
                 </form>
             </div>
@@ -414,37 +461,37 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>MindMetrics</h3>
-                    <p style="color: #ffffff;">Professional assessments for learning styles and personality types to help individuals and organizations thrive.</p>
+                    <p style="color: #ffffff;">Evaluaciones profesionales para estilos de aprendizaje y tipos de personalidad que ayudan a individuos y organizaciones a prosperar.</p>
                 </div>
                 <div class="footer-column">
-                    <h3>Assessments</h3>
+                    <h3>Evaluaciones</h3>
                     <ul>
-                        <li><a href="/test-vark">VARK Test</a></li>
-                        <li><a href="/test-personalidad">Personality Test</a></li>
-                        <li><a href="/career-assessment">Career Assessment</a></li>
-                        <li><a href="/team-compatibility">Team Compatibility</a></li>
+                        <li><a href="/test-vark">Test VARK</a></li>
+                        <li><a href="/test-personalidad">Test de Personalidad</a></li>
+                        <li><a href="/career-assessment">Evaluación de Carrera</a></li>
+                        <li><a href="/team-compatibility">Compatibilidad de Equipo</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Resources</h3>
+                    <h3>Recursos</h3>
                     <ul>
                         <li><a href="/blog">Blog</a></li>
-                        <li><a href="/research">Research</a></li>
-                        <li><a href="/faq">FAQ</a></li>
-                        <li><a href="/support">Support</a></li>
+                        <li><a href="/research">Investigación</a></li>
+                        <li><a href="/faq">Preguntas Frecuentes</a></li>
+                        <li><a href="/support">Soporte</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Legal</h3>
                     <ul>
-                        <li><a href="/privacy-policy">Privacy Policy</a></li>
-                        <li><a href="/terms-of-service">Terms of Service</a></li>
-                        <li><a href="/data-protection">Data Protection</a></li>
+                        <li><a href="/privacy-policy">Política de Privacidad</a></li>
+                        <li><a href="/terms-of-service">Términos de Servicio</a></li>
+                        <li><a href="/data-protection">Protección de Datos</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2023 MindMetrics. All rights reserved.
+                &copy; 2023 MindMetrics. Todos los derechos reservados.
             </div>
         </div>
     </footer>

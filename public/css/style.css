@@ -513,3 +513,35 @@ p {
     font-size: 1em;
   }
 }
+
+/* Estilos para las gráficas */
+@media (max-width: 768px) {
+    div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+    
+    #chartVarkGrupo,
+    #chartPersonalidadGrupo {
+        max-height: 250px !important;
+    }
+}
+
+/* Contenedor de scroll para tipos de personalidad */
+div[style*="max-height: 350px"] {
+    scrollbar-width: thin;
+    scrollbar-color: #9C27B0 #f3e5f5;
+}
+
+div[style*="max-height: 350px"]::-webkit-scrollbar {
+    width: 6px;
+}
+
+div[style*="max-height: 350px"]::-webkit-scrollbar-track {
+    background: #f3e5f5;
+    border-radius: 3px;
+}
+
+div[style*="max-height: 350px"]::-webkit-scrollbar-thumb {
+    background: #9C27B0;
+    border-radius: 3px;
+}
